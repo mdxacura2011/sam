@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <adminhtml_task_index>
+        <reference name="content">
+            <block type="task/adminhtml_task" name="task" />
+        </reference>
+    </adminhtml_task_index>
+    <adminhtml_task_edit>
+        <reference name="content">
+            <block type="task/adminhtml_task_edit" name="task" />
+        </reference>
+    </adminhtml_task_edit>
+</layout>

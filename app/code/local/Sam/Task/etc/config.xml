@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Sam_Task>
+            <version>0.1.0</version>
+        </Sam_Task>
+    </modules>
+
+    <frontend>
+        <routers>
+            <task>
+                <use>standard</use>
+                <args>
+                    <module>Sam_Task</module>
+                    <frontName>task</frontName>
+                </args>
+            </task>
+        </routers>
+
+        <layout>
+            <updates>
+                <task>
+                    <file>sam/task.xml</file>
+                </task>
+            </updates>
+        </layout>
+    </frontend>
+
+
+    <global>
+    <blocks>
+        <task>
+            <class>Sam_Task_Block</class>
+        </task>
+        <catalog>
+            <rewrite>
+                <product_view>Sam_Task_Block_View</product_view>
+            </rewrite>
+        </catalog>
+    </blocks>
+
+    <helpers>
+        <task>
+            <class>Sam_Task_Helper</class>
+        </task>
+    </helpers>
+
+    <models>
+        <task>
+            <class>Sam_Task_Model</class>
+            <resourceModel>task_resource</resourceModel>
+        </task>
+        <task_resource>
+            <class>Sam_Task_Model_Resource</class>
+            <entities>
+                <sam>
+                    <table>sam</table>
+                </sam>
+            </entities>
+        </task_resource>
+    </models>
+
+        <resources>
+        <task_write>
+            <connection>
+                <use>core_write</use>
+            </connection>
+        </task_write>
+        <task_read>
+            <connection>
+                <use>core_read</use>
+            </connection>
+        </task_read>
+
+            <task_setup>
+                <setup>
+                    <module>Sam_Task</module>
+                    <class>Sam_Task_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </task_setup>
+        </resources>
+
+    </global>
+
+        <adminhtml>
+            <layout>
+                <updates>
+                    <task>
+                        <file>sam/task.xml</file>
+                    </task>
+                </updates>
+            </layout>
+        </adminhtml>
+
+        <admin>
+            <routers>
+                <adminhtml>
+                    <args>
+                        <modules>
+                            <task before="Mage_Adminhtml">Sam_Task_Adminhtml</task>
+                        </modules>
+                    </args>
+                </adminhtml>
+            </routers>
+        </admin>
+    </config>
