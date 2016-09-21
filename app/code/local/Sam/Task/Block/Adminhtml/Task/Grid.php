@@ -5,7 +5,9 @@ class Sam_Task_Block_Adminhtml_Task_Grid extends Mage_Adminhtml_Block_Widget_Gri
     {
 
         $this->setId('taskGrid');
+
         $this->_controller = 'adminhtml_task';
+
 
         $this->setDefaultSort('id');
         $this->setDefaultDir('desc');

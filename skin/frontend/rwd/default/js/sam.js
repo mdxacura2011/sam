@@ -8,7 +8,6 @@ var $j = jQuery.noConflict();
 
         function centerBox() {
 
-
             var winWidth = $j(window).width();
 
             var winHeight = $j(document).height();

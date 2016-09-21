@@ -32,11 +32,7 @@
         <task>
             <class>Sam_Task_Block</class>
         </task>
-        <catalog>
-            <rewrite>
-                <product_view>Sam_Task_Block_View</product_view>
-            </rewrite>
-        </catalog>
+
     </blocks>
 
     <helpers>

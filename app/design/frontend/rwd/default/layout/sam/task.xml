@@ -1,9 +1,40 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
+
+    <!--<tasknew_index_ajform>
+
+        <reference name="content">
+            <block type="tasknew/product_form" name="tasknew" template="sam/form.phtml"/>
+        </reference>
+    </tasknew_index_ajform>-->
+
     <default>
         <reference name="head">
             <action method="addCss"><name>css/sam.css</name></action>
             <action method="addItem"><type>skin_js</type><name>js/sam.js</name></action>
+
+                <!--<block type="core/text" name="google.cdn.jquery">
+                    <action method="setText">
+                        <text><![CDATA[<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script><script type="text/javascript">jQuery.noConflict();</script>]]>
+                        </text>
+                    </action>
+                </block>-->
+
         </reference>
+
+        <reference name="catalog_product_price_template">
+            <action method="addPriceBlockType"><type>msrp_item</type><block>core/template</block><template>sam/link.phtml</template></action>
+        </reference>
+
     </default>
+   <catalog_product_view>
+       <!--alert.urls-->
+       <reference name="before_body_end">
+            <block type="task/view" name="task" before="-" template="sam/view.phtml"/>
+        </reference>
+       <remove name="product.info.addtocart" />
+    </catalog_product_view>
+
+
+
 </layout>

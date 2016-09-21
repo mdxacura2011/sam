@@ -70,4 +70,11 @@ class Sam_Task_Adminhtml_TaskController extends Mage_Adminhtml_Controller_Action
         }
         $this->_redirect('*/*/');
     }
+
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('customer/products');
+    }
+
+
 }

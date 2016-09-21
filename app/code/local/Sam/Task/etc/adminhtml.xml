@@ -13,4 +13,20 @@
             </children>
         </customer>
     </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <customer>
+                        <children>
+                            <products translate="title" module="customer">
+                                <title>Request Price</title>
+                                <sort_order>10</sort_order>
+                            </products>
+                        </children>
+                    </customer>
+                </children>
+            </admin>
+        </resources>
+    </acl>
 </config>

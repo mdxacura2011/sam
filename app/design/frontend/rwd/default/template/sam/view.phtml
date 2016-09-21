@@ -1,5 +1,5 @@
 <?php $_product = $this->getProduct(); ?>
-<a class="popup-link-1" href="">Request Price</a>
+
 <div class="popup-box" id="popup-box-1">
     <div class="close">X</div>
     <div class="top">
@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="bottom">
-        <form id="requestForm" action="" method="post" class="scaffold-form">
+        <form id="requestForm" class="scaffold-form" >
             <div class="fieldset">
                 <h2 class="legend"><?php echo Mage::helper('task')->__('Request Information') ?></h2>
                 <p class="required"><?php echo Mage::helper('task')->__('* Required Fields') ?></p>
@@ -17,53 +17,47 @@
                         <div class="field">
                             <label for="name" class="required"><em>*</em><?php echo Mage::helper('task')->__('Name') ?></label>
                             <div class="input-box">
-                                <input name="name" id="name" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('task')->__('Name')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserName()) ?>" class="input-text required-entry" type="text" />
+                                <input name="name" id="name" class="input-text required-entry validate-alpha-rus validate-length maximum-length-25 minimum-length-3" type="text" />
                             </div>
                         </div>
                         <div class="field">
                             <label for="email" class="required"><em>*</em><?php echo Mage::helper('task')->__('Email') ?></label>
                             <div class="input-box">
-                                <input name="email" id="email" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('task')->__('Email')) ?>" value="<?php echo $this->escapeHtml($this->helper('contacts')->getUserEmail()) ?>" class="input-text required-entry validate-email" type="email" autocapitalize="off" autocorrect="off" spellcheck="false" />
+                                <input name="email" id="email"  class="input-text required-entry validate-email" type="email" autocapitalize="off" autocorrect="off" spellcheck="false" />
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="comment" class="required"><em>*</em><?php echo Mage::helper('task')->__('Comment') ?></label>
+                            <div class="input-box">
+                                <textarea name="created_at" id="comment"  class="required-entry input-text validate-length maximum-length-100 minimum-length-10" cols="5" rows="3"></textarea>
                             </div>
                         </div>
                     </li>
-                    <li class="wide">
-                        <label for="comment" class="required"><em>*</em><?php echo Mage::helper('task')->__('Comment') ?></label>
-                        <div class="input-box">
-                            <textarea name="created_at" id="comment" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Comment')) ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
-                        </div>
-                    </li>
+
                 </ul>
             </div>
             <div class="buttons-set">
+
                 <input type="hidden" value="<?php echo $this->htmlEscape($_product->getData('sku')); ?>" name="product_sku" title="<?php echo Mage::helper('task')->__('Sku') ?>"/>
-                <button type="submit" name="submit" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('task')->__('Submit')) ?>" class="button"><span><span><?php echo Mage::helper('task')->__('Submit') ?></span></span></button>
+
+                <button type="submit"  title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('task')->__('Submit')) ?>" class="button"><span><span><?php echo Mage::helper('task')->__('Submit') ?></span></span></button>
             </div>
         </form>
     </div>
 </div>
 <script type="text/javascript">
     //<![CDATA[
-    var postUrl = "<?php echo $this->getUrl('task/index/saveform'); ?>";
+    var requestForm = new VarienForm('requestForm', true);
+    requestForm.form.observe('submit',function(event){
+        event.stop();
+        if(this.validator.validate()){
+            var params = this.form.serialize(true);
+            new Ajax.Request('<?php echo $this->getUrl('task/index/saveform'); ?>',{parameters:params, onSuccess:function(resp){$('popup-box-1').hide(); $('blackout').hide();}});
+        }
+    }.bindAsEventListener(requestForm));
 
-    (function ($j) {
-        $j(document).ready(function(){
-            $j("#requestForm").submit(function() {
-                var form_data = $j(this).serialize();
-                $j.ajax({
-                    type: "POST",
-                    url: postUrl,
-                    data: form_data,
-                    success: function(data) {
-
-                        console.log(data);
-                    },
-                    error: function( xhr, textStatus ) {
-                        alert( [ xhr.status, textStatus ] );
-                    }
-                });
-            });
-        });
-    }) ($j);
-   //]]>
+    Validation.add('validate-alpha-rus','Please enter your correct name',function(v) {
+        return Validation.get('IsEmpty').test(v) || /^([A-Za-zа-яА-ЯёЁ]+)$/.test(v)
+    });
+ //]]>
 </script>
